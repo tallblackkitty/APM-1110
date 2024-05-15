@@ -1,0 +1,25 @@
+---
+title: "SA2NUM2ABLIAN"
+output: html_document
+date: "2024-05-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set a CRAN mirror
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+```
+```{r}
+install.packages("ggplot2")
+install.packages("anytime")
+library(anytime)
+library(ggplot2)
+eth_df <- read.csv("D:/FEU/2ND YR 2ND SEM/PROBABILITY/ethereum_2015.csv")
+head(eth_df)
+tail(eth_df)
+eth_df$Return <- ((eth_df$Close - eth_df$Open) / eth_df$Open) 
+hist(eth_df$Return, main = "Ethereum Returns (Simple Rate)", xlab = "Percentage Change", xlim = c(-0.5, 0.5), col = "skyblue", breaks = 250)
+eth_shapiro_test <- shapiro.test(eth_df$Return)
+print(eth_shapiro_test)
+```
+Since ethereum followed a normal distribution, the null hypthesis of Shapiro-Wilk will be rejected, since in this case, the p-value is significantly lower meaning it's a non-normal distribution.
